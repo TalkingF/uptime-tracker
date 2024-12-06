@@ -1,8 +1,21 @@
-﻿public class UptimeTracker
+﻿using Spectre.Console;
+using System.Net.NetworkInformation;
+public static class UptimeTracker
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
-        Console.WriteLine("This is a test");
+        AnsiConsole.Markup("[underline yellow]Uptime Tracker[/]\n");
+        EndpointQuery endpointQuery = new EndpointQuery();
+        Uri uri = new Uri("http://example.com");
+        bool access = await endpointQuery.TestEnpoint(uri);
+        if (access)
+        {
+            AnsiConsole.Markup("[green]Reachable[/]\n");
+        }
+        else
+        {
+            AnsiConsole.Markup("[red]Unreachable[/]\n");
+        }
     }
 
 }
